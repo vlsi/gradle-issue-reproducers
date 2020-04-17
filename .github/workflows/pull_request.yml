@@ -8,8 +8,13 @@ on:
 jobs:
   linux-latest:
     strategy:
+      fail-fast: false
       matrix:
-        gradle-version: [current, wrapper, rc, nightly]
+        gradle-version:
+          - current
+          - wrapper
+          - rc
+          - nightly
     name: 'Gradle ${{ matrix.gradle-version }}'
     runs-on: ubuntu-latest
     steps:
