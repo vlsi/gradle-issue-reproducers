@@ -12,7 +12,6 @@ jobs:
       matrix:
         gradle-version:
           - current
-          - wrapper
           - rc
           - nightly
     name: 'Gradle ${{ matrix.gradle-version }}'
@@ -29,4 +28,4 @@ jobs:
         uses: eskatos/gradle-command-action@v1
         with:
           gradle-version: ${{ matrix.gradle-version }}
-          arguments: --no-parallel --no-daemon -i -s
+          arguments: --no-parallel --no-daemon -i -s printFile
