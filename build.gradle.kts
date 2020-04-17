@@ -8,8 +8,17 @@ val generateFile by tasks.registering() {
 }
 
 open class CatTask @Inject constructor(objectFactory: ObjectFactory) : DefaultTask() {
-    @InputFile
+    @Internal
     val inputFile = objectFactory.property<File>()
+
+    // See https://github.com/gradle/gradle/issues/12627
+    @get:InputFile
+    val actualInputFile: File? get() = try {
+        inputFile.get()
+    } catch (e: IllegalStateException) {
+        // This means Gradle queries property too early
+        null
+    }
 
     @TaskAction
     fun run() {
